@@ -4,14 +4,18 @@ import (
 	"fmt"
 	"net/http"
 
+	// API handler
 	"github.com/gin-gonic/gin"
 
-	medusaFS "randol/medusa-file-system"
+	// Packages
+	Config "medusa/configManager"
+	FS "medusa/fileSystem"
 )
 
 func main() {
-	router := gin.Default()
+	cfg := Config.GetConfig()
 
+	router := gin.Default()
 	// Define a GET endpoint
 	router.GET("/example", func(c *gin.Context) {
 		c.JSON(200, gin.H{
@@ -20,7 +24,7 @@ func main() {
 	})
 
 	router.GET("/media/:name", func(c *gin.Context) {
-		byteFile, err := medusaFS.GetMedia(c.Param("name"))
+		byteFile, err := FS.GetMedia(c.Param("name"))
 		if err != nil {
 			fmt.Println(err)
 		}
@@ -28,7 +32,7 @@ func main() {
 	})
 
 	router.GET("/metadata/:name", func(c *gin.Context) {
-		byteFile, err := medusaFS.GetMediaMetadata(c.Param("name"))
+		byteFile, err := FS.GetMediaMetadata(c.Param("name"))
 		if err != nil {
 			fmt.Println(err)
 		}
@@ -36,5 +40,5 @@ func main() {
 	})
 
 	// Start the server
-	router.Run(":8080")
+	router.Run(fmt.Sprintf(":%s", cfg.Server.Port))
 }

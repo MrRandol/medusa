@@ -1,4 +1,4 @@
-package medusaFS
+package fileSystem
 
 import (
 	"fmt"
