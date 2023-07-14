@@ -1,0 +1,35 @@
+version: '3'
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    volumes:
+      - ./frontend:/app
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - 8081:8080
+    volumes:
+      - ./backend:/app
+    depends_on:
+      - postgresql
+
+  postgresql:
+    image: postgres:latest
+    volumes:
+      - ./postgresql:/var/lib/postgresql/data
+      - ./postgresql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    environment:
+      - POSTGRES_DB=medusa
+      - POSTGRES_USER=medusa_user
+      - POSTGRES_PASSWORD=medusa_pass
+    ports:
+      - 5432:5432
