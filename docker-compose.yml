@@ -25,11 +25,21 @@ services:
   postgresql:
     image: postgres:latest
     volumes:
-      - ./postgresql:/var/lib/postgresql/data
-      - ./postgresql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+      - postgresql:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=medusa
       - POSTGRES_USER=medusa_user
       - POSTGRES_PASSWORD=medusa_pass
     ports:
       - 5432:5432
+    
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 9000:8080
+    depends_on:
+      - postgresql
+
+volumes:
+  postgresql:
