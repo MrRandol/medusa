@@ -5,18 +5,22 @@ import { AppComponent } from './app.component';
 import { GalleryComponent } from './gallery/gallery.component';
 import { MediaDetailsComponent } from './media-details/media-details.component';
 import { RouterModule } from '@angular/router';
+import { ErrorPageComponentComponent } from './error-page-component/error-page-component.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GalleryComponent,
-    MediaDetailsComponent
+    MediaDetailsComponent,
+    ErrorPageComponentComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot([
       {path: 'gallery', component: GalleryComponent},
       {path: 'media-details', component: MediaDetailsComponent},
+      {path: '', redirectTo: '/gallery', pathMatch: 'full' },
+      {path: '**', component: ErrorPageComponentComponent }
     ]),
   ],
   providers: [],
