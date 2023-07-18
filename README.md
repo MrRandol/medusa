@@ -1,24 +1,17 @@
+# The medusa project
+
 ## Intro
 
 TODO
 
 ## Frontend
 
-TODO
+See [documentation](./frontend/README.md)
 
 ## Backend
 
-Go [1.20.6](https://go.dev/dl/)
+See [documentation](./backend/README.md)
 
-### Local set up
-In `backend`, run `go mod tidy` to fetch all dependencies, then `go run .` to start the server.
+## Database
 
-### Configuration
-
-Basic configuration containing default values for local development can be found in `config.default.yml`, but can be overwritten through environment.
-
-TODO : table of config values and description
-
-### Tests
-
-TODO
+You can run a dev database by launching `docker-compose up postgresql`
