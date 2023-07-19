@@ -1,0 +1,8 @@
+<p>gallery works!</p>
+
+<div *ngIf="gallery !== undefined && gallery.data !== undefined">
+    <div *ngFor="let media of gallery.data; let i = index">
+        <app-media [media]=media></app-media>
+        <hr/>
+    </div>
+</div>

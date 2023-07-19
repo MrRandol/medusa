@@ -1,5 +1,5 @@
-import { GalleryItem } from "./GalleryItem";
+import { Media } from "./Media";
 
 export interface Gallery {
-    data: Array<GalleryItem>;
+    data: Array<Media>;
 }
