@@ -19,6 +19,9 @@ Thumbs.db
 .settings/
 *.sublime-workspace
 
+# Development files
+dev
+
 #######################
 # BACKEND
 #######################
@@ -61,5 +64,4 @@ coverage
 libpeerconnection.log
 testem.log
 typings
-
 
