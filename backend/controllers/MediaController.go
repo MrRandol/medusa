@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"medusa/models"
+
 	"net/http"
 
 	"github.com/gin-gonic/gin"

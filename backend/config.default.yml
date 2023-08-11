@@ -1,2 +1,11 @@
 server:
   port: 8080
+
+# Database credentials
+database:
+  user: "medusa_user"
+  password: "medusa_pass"
+  name: "medusa"
+  host: "localhost"
+  port: 5432
+  tz: "Etc/UTC"

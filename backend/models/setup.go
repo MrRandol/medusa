@@ -1,16 +1,32 @@
 package models
 
 import (
+	"fmt"
+
 	"gorm.io/driver/postgres"
 	_ "gorm.io/driver/postgres"
 	"gorm.io/gorm"
+
+	"medusa/config"
 )
 
 var DB *gorm.DB
 
-func ConnectDatabase() {
-	// TODO : DB configs
-	dsn := "host=localhost user=medusa_user password=medusa_pass dbname=medusa port=5432 sslmode=disable TimeZone=Etc/UTC"
+func ConnectDatabase(cfg config.DatabaseConfig) {
+	dsn := fmt.Sprintf(`
+		host=%s 
+		port=%s 
+		user=%s 
+		password=%s 
+		dbname=%s  
+		sslmode=disable 
+		TimeZone=%s`,
+		cfg.Host,
+		cfg.Port,
+		cfg.User,
+		cfg.Password,
+		cfg.Name,
+		cfg.Tz)
 	database, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 
 	if err != nil {
