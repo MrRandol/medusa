@@ -5,3 +5,8 @@ type Media struct {
 	FileName string `json:"fileName"`
 	FilePath string `json:"filePath"`
 }
+
+type CreateMediaInput struct {
+	FileName string `json:"fileName" binding:"required"`
+	FilePath string `json:"filePath" binding:"required"`
+}
