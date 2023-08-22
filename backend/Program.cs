@@ -1,18 +1,21 @@
 using Microsoft.EntityFrameworkCore;
-using Models.Media;
-using Microsoft.Extensions.DependencyInjection;
+using backend.Services;
+using backend.Models;
 
 var builder = WebApplication.CreateBuilder(args);
+var services = builder.Services;
+// Add data helper
+services.AddDbContext<MediaDB>(o => o.UseNpgsql(builder.Configuration.GetConnectionString("BackendDatabase")));
+
+// Add services singletons
+services.AddSingleton<MediasService, MediasService>();
 
 // Add services to the container.
-builder.Services.AddControllers();
-
-builder.Services.AddDbContext < Media_DataContext > (o => o.UseNpgsql(builder.Configuration.GetConnectionString("Ef_Postgres_Db")));
-
+services.AddControllers();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+services.AddEndpointsApiExplorer();
+services.AddSwaggerGen();
 
 var app = builder.Build();
 
@@ -24,9 +27,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();

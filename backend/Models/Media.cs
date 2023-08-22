@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
-namespace Models.Media;
+namespace backend.Models;
 
 public class Media
 {
@@ -13,12 +13,8 @@ public class Media
     public string ? Uri { get; set; }
 }
 
-public class MediaDB
+public class MediaDB : DbContext
 {
-    [Required]
-    public long Id { get; set; }
-    [Required]
-    public string ? Name { get; set; }
-    [Required]
-    public string ? Uri { get; set; }
+    public MediaDB(DbContextOptions options) : base(options) { }
+    public DbSet<Media> Medias { get; set; } = null!;
 }

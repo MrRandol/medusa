@@ -2,31 +2,37 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using backend.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Models.Media;
+using backend.Models;
 
 namespace backend.Controllers
 {
+
     [Route("api/[controller]")]
     [ApiController]
     public class MediasController : ControllerBase
     {
-
-        public MediasController()
+        private readonly MediaDB _db;
+     
+        public MediasController(MediaDB db)
         {
+            _db = db;
         }
 
-        // GET: api/Medias
+        /// <summary>
+        /// Retrieves all medias
+        /// </summary>
+        /// <response code="200">The list of all medias</response>
+        /// <response code="500">Oops! Something went wrong</response>
         [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<Media>), 200)]
+        [ProducesResponseType(500)]
         public async Task<ActionResult<IEnumerable<Media>>> GetMedia()
         {
-            return new List<Media>(){new Media {
-                Id = 6,
-                Name = "toto",
-                Uri = "oitrnoi"
-            }};
+            return await _db.Medias.ToListAsync();
         }
 
         // // GET: api/Medias/5
