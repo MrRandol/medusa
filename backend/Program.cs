@@ -8,7 +8,7 @@ var services = builder.Services;
 services.AddDbContext<MediaDB>(o => o.UseNpgsql(builder.Configuration.GetConnectionString("BackendDatabase")));
 
 // Add services singletons
-services.AddSingleton<MediasService, MediasService>();
+services.AddScoped<IMediaService, MediaService>();
 
 // Add services to the container.
 services.AddControllers();

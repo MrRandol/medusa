@@ -1,11 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using backend.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using backend.Models;
 
 namespace backend.Controllers
@@ -15,13 +9,14 @@ namespace backend.Controllers
     [ApiController]
     public class MediasController : ControllerBase
     {
-        private readonly MediaDB _db;
+        private readonly IMediaService _service;
      
-        public MediasController(MediaDB db)
+        public MediasController(IMediaService service)
         {
-            _db = db;
+            _service = service;
         }
 
+        // GET: api/medias/
         /// <summary>
         /// Retrieves all medias
         /// </summary>
@@ -30,9 +25,9 @@ namespace backend.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<Media>), 200)]
         [ProducesResponseType(500)]
-        public async Task<ActionResult<IEnumerable<Media>>> GetMedia()
+        public ActionResult<IEnumerable<Media>> GetMedias()
         {
-            return await _db.Medias.ToListAsync();
+            return _service.GetAllMedias();
         }
 
         // // GET: api/Medias/5
