@@ -1,5 +1,5 @@
-<div class="gallery" *ngIf="gallery !== undefined && gallery.data !== undefined">
-    <div class="media" *ngFor="let media of gallery.data; let i = index">
-        <app-media [media]=media></app-media>
+<div #gallery class="gallery" *ngIf="gallery !== undefined && gallery.data !== undefined">
+    <div class="media" *ngFor="let row of rows; let i = index">
+        <app-row [row]="row" [maxHeight]="maxHeight"></app-row>
     </div>
 </div>

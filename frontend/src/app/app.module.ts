@@ -6,12 +6,14 @@ import { AppComponent } from './app.component';
 import { GalleryComponent } from './components/gallery/gallery.component';
 import { MediaComponent } from './components/media/media.component';
 import { RouterModule } from '@angular/router';
+import { RowComponent } from './components/row/row.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GalleryComponent,
-    MediaComponent
+    MediaComponent,
+    RowComponent
   ],
   imports: [
     BrowserModule,

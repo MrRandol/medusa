@@ -1,26 +1,30 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MedusaBackendService } from '../../services/medusa-backend.service';
 import { Gallery } from '../../models/Gallery';
+import { HelperService } from 'src/app/helpers/helper';
+import { Row } from 'src/app/models/Row';
+import { BreakDefinition, FixedSizeGraph } from 'src/app/models/Graph';
 
 @Component({
   selector: 'app-gallery',
   templateUrl: './gallery.component.html',
   styleUrls: ['./gallery.component.css']
 })
+
 export class GalleryComponent {
+  @ViewChild('gallery') galleryRef: ElementRef;
+
   gallery: Gallery | undefined;
+  maxHeight: number = 190;
+  rows: Row[] = [];
+  graph: FixedSizeGraph<BreakDefinition>;
 
   constructor(private backendService: MedusaBackendService) {}
 
   ngOnInit() {
-    this.fetchGallery();
+    this.gallery = HelperService.generateMockGalley(25);
+    var containerWidth = this.galleryRef ? this.galleryRef.nativeElement.offsetWidth : window.innerWidth * 0.9;
+    this.rows = HelperService.generateRows(this.gallery, this.maxHeight, containerWidth);
   }
 
-  fetchGallery() {
-    this.backendService.getGallery()
-      // clone the data object, using its known Config shape
-      .subscribe((data: Gallery) => {
-        this.gallery = { ...data }
-      });
-  }
 }

@@ -1,1 +1,4 @@
-<img src="{{'http://localhost:9090/' + media.filePath}}">
+<div [ngStyle]="{'height.px': height}">
+    <img  src="{{media.filePath}}">
+    <p>{{index}}</p>
+</div>

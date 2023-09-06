@@ -1,0 +1,3 @@
+<div class="row" [ngStyle]="{'max-height.px': maxHeight}">
+    <app-media *ngFor="let media of row.medias; let i = index" [height]="row.height" [media]=media></app-media>
+</div>
