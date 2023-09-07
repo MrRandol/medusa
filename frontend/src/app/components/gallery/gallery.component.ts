@@ -3,7 +3,6 @@ import { MedusaBackendService } from '../../services/medusa-backend.service';
 import { Gallery } from '../../models/Gallery';
 import { HelperService } from 'src/app/helpers/helper';
 import { Row } from 'src/app/models/Row';
-import { BreakDefinition, FixedSizeGraph } from 'src/app/models/Graph';
 
 @Component({
   selector: 'app-gallery',
@@ -15,16 +14,14 @@ export class GalleryComponent {
   @ViewChild('gallery') galleryRef: ElementRef;
 
   gallery: Gallery | undefined;
-  maxHeight: number = 190;
   rows: Row[] = [];
-  graph: FixedSizeGraph<BreakDefinition>;
 
   constructor(private backendService: MedusaBackendService) {}
 
   ngOnInit() {
     this.gallery = HelperService.generateMockGalley(25);
     var containerWidth = this.galleryRef ? this.galleryRef.nativeElement.offsetWidth : window.innerWidth * 0.9;
-    this.rows = HelperService.generateRows(this.gallery, this.maxHeight, containerWidth);
+    this.rows = HelperService.generateRows(this.gallery, containerWidth);
   }
 
 }

@@ -1,30 +1,35 @@
-export interface BreakDefinition {
+export interface BadnessDefinition {
     badness: number;
-    sourceIndex: number;
-    targetIndex: number;
     height: number;
 }
 
+export class GraphEdge<T> {
+    value: T;
+    sourceIndex: number;
+    targetIndex: number;
+
+    constructor(value: T, source: number, target: number) {
+        this.value = value
+        this.sourceIndex = source;
+        this.targetIndex = target;
+    }
+}
 
 export class GraphNode<T> {
-    value: T;
-    nodesTo: number[];
-    nodesFrom: number[];
+    index: number;
+    edges: GraphEdge<T>[];
   
-    constructor(value: T) {
-        this.value = value;
-        this.nodesTo = [];
-        this.nodesFrom = [];
+    constructor(value: number) {
+        this.index = value;
+        this.edges = [];
     }
   
-    addNodeDestination(node: number) {
-        this.nodesTo.push(node);
-        this.nodesTo = Array.from(new Set(this.nodesTo));
+    addEdge(edge: GraphEdge<T>) {
+        this.edges.push(edge);
     }
 
-    addNodeSource(node: number) {
-        this.nodesFrom.push(node);
-        this.nodesFrom = Array.from(new Set(this.nodesFrom));
+    getOutgoingEdges(): GraphEdge<T>[] {
+        return this.edges.filter(e => e.sourceIndex === this.index)
     }
 }
 
@@ -48,11 +53,19 @@ export class FixedSizeGraph<T> {
         }
     }
   
-    addEdge(s: number, d: number) {
-        var sourceNode = this.getNodeByIndex(s);
-        var destNode = this.getNodeByIndex(d);
-        sourceNode.addNodeDestination(d);
-        destNode.addNodeSource(s);
+    addEdge(source: number, destination: number, value: T) {
+        
+        var sourceNode = this.getNodeByIndex(source);
+        
+        if (sourceNode.edges.find(e => e.sourceIndex === source && e.targetIndex === destination)) {
+            return;
+        }
+        
+        var edge = new GraphEdge<T>(value, source, destination)
+        var destNode = this.getNodeByIndex(destination);
+
+        sourceNode.addEdge(edge);
+        destNode.addEdge(edge);
     }
 
 }

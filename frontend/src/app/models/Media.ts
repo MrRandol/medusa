@@ -1,5 +1,5 @@
 export interface Media {
-    id: Int16Array;
+    id: number;
     fileName: string;
     filePath: string;
     width: number;

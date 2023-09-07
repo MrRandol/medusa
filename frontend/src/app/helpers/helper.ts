@@ -4,7 +4,6 @@ import { Dimension, Media } from "../models/Media";
 import { Row } from "../models/Row";
 import { MediaTreeHelperService } from "./mediaTreeHelpers";
 import { UiConfig } from "../models/UIConfig";
-import { BreakDefinition, FixedSizeGraph } from "../models/Graph";
 
 @Injectable({
     providedIn: 'root'
@@ -22,11 +21,11 @@ export class HelperService {
       if (HelperService.getRandomBool()) {
         var z = x;
         x = y;
-        y = x;
+        y = z;
       }
   
       gallery_data.push({
-        id: new Int16Array(i), 
+        id: i, 
         fileName: i.toString(), 
         filePath: "https://picsum.photos/" + x + "/" + y + "?" + i,
         width: x,
@@ -47,13 +46,13 @@ export class HelperService {
     return Math.floor(Math.random() * (max - min) + min); // The maximum is inclusive and the minimum is inclusive
   }
 
-  static generateRows(gallery: Gallery, maxHeight: number, containerWidth: number): Row[] {
+  static generateRows(gallery: Gallery, containerWidth: number): Row[] {
     if (gallery == null) return [];
 
     let viewportWidth = containerWidth;
     var config: UiConfig = {
       containerWidth: viewportWidth,
-      maxHeight: 220,
+      maxHeight: 210,
       minHeight: 150,
       targetHeight: 180
     }
@@ -66,9 +65,8 @@ export class HelperService {
     var rows: Row[] = [];
     optimalPath.forEach(p => {
       rows.push({
-        medias: gallery.data.slice(p.source, p.target +1),
-        height: p.height,
-        badness: 0
+        medias: gallery.data.slice(p.source, p.target + 1),
+        height: p.height
       })
     })
 

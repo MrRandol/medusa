@@ -8,5 +8,4 @@ import { Row } from 'src/app/models/Row';
 })
 export class RowComponent {
   @Input() row: Row;  
-  @Input() maxHeight: number = 50;  
 }
