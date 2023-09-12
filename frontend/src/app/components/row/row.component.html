@@ -1,3 +1,3 @@
-<div class="row">
-    <app-media *ngFor="let media of row.medias; let i = index" [height]="row.height" [media]=media></app-media>
+<div class="row" [style.top.px]="heightShift" [style.height.px]="row.height">
+    <app-media *ngFor="let media of row.medias; let i = index" [height]="row.height" [widthShift]="cumulativeHeight(i)" [media]=media></app-media>
 </div>

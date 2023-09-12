@@ -1,6 +1,5 @@
 import { Component, Input } from "@angular/core";
 import { Media } from "src/app/models/Media";
-import { MediaService } from "src/app/services/media.service";
 
 @Component({
   selector: 'app-media',
@@ -11,10 +10,18 @@ import { MediaService } from "src/app/services/media.service";
 export class MediaComponent {
   @Input() media: Media;  
   @Input() height: number;  
-  
-  index:number = -1;
+  @Input() width: number;  
+  @Input() widthShift: number;
+  @Input() heightShift: number;
 
-  constructor(s: MediaService) {
-    this.index = s.getNextIndex();
+  loader:string='https://media.tenor.com/images/f864cbf3ea7916572605edd3b3fe637f/tenor.gif';
+  isLoading:boolean;
+  
+  constructor() { 
+    this.isLoading=true;
+  }
+
+  hideLoader(){
+    this.isLoading=false;
   }
 }

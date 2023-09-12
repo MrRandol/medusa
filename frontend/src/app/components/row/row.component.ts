@@ -8,4 +8,15 @@ import { Row } from 'src/app/models/Row';
 })
 export class RowComponent {
   @Input() row: Row;  
+  @Input() heightShift: number;
+
+  cumulativeHeight(columnIndex: number): number {
+    var cumulativeHeight = 0;
+    for (var i = 0; i < columnIndex; i++) {
+      cumulativeHeight += this.row.medias[i].width * this.row.height / this.row.medias[i].height;
+    }
+    return cumulativeHeight;
+  }
+
 }
+

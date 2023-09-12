@@ -1,5 +1,6 @@
 .gallery {
     contain: layout;
+    position: relative;
     width: 90vw;
     margin: auto;
 }

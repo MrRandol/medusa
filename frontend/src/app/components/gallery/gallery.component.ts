@@ -15,13 +15,33 @@ export class GalleryComponent {
 
   gallery: Gallery | undefined;
   rows: Row[] = [];
+  sectionHeight: number = 0
+  heightShift: number = 0
 
   constructor(private backendService: MedusaBackendService) {}
 
   ngOnInit() {
+    this.heightShift = 0;
     this.gallery = HelperService.generateMockGalley(25);
     var containerWidth = this.galleryRef ? this.galleryRef.nativeElement.offsetWidth : window.innerWidth * 0.9;
     this.rows = HelperService.generateRows(this.gallery, containerWidth);
+    this.sectionHeight = this.rows.reduce((acc, r) => acc+r.height, 0);
+  }
+
+  cumulativeHeight(rowIndex: number): number {
+    var cumulativeHeight = 0;
+    for (var i = 0; i < rowIndex; i++) {
+      cumulativeHeight += this.rows[i].height;
+    }
+    return cumulativeHeight;
+  }
+
+  cumulativeWidth(row: Row, columnIndex: number): number {
+    var cumulativeHeight = 0;
+    for (var i = 0; i < columnIndex; i++) {
+      cumulativeHeight += row.medias[i].width * row.height / row.medias[i].height;
+    }
+    return cumulativeHeight;
   }
 
 }
