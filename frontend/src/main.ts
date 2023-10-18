@@ -1,7 +1,14 @@
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import {bootstrapApplication} from '@angular/platform-browser';
+import { provideRouter } from '@angular/router';
+import { GalleryComponent } from './app/components/gallery/gallery.component';
 
-import { AppModule } from './app/app.module';
 
-
-platformBrowserDynamic().bootstrapModule(AppModule)
-  .catch(err => console.error(err));
+bootstrapApplication(GalleryComponent, {
+  providers: [
+    provideRouter([
+      {path: 'gallery', component: GalleryComponent},
+      {path: '', redirectTo: '/gallery', pathMatch: 'full' }
+      //{path: '**', component: ErrorPageComponentComponent }
+    ])
+  ]
+});

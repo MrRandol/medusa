@@ -1,5 +1,4 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { MedusaBackendService } from '../../services/medusa-backend.service';
 import { Gallery } from '../../models/Gallery';
 import { HelperService } from 'src/app/helpers/helper';
 import { Row } from 'src/app/models/Row';
@@ -22,7 +21,7 @@ export class GalleryComponent {
   sectionHeight: number = 0
   heightShift: number = 0
 
-  constructor(private backendService: MedusaBackendService) {}
+  constructor() {}
 
   ngOnInit() {
     this.heightShift = 0;
