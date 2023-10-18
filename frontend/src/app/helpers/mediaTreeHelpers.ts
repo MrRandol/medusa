@@ -3,6 +3,7 @@ import { Dimension } from "../models/Media";
 import { UiConfig } from "../models/UIConfig";
 import { BadnessDefinition, FixedSizeGraph, GraphEdge, GraphNode } from "../models/Graph";
 import { PathSegment } from "../models/Row";
+import { environment } from "environment";
 
 @Injectable({
     providedIn: 'root'
@@ -93,6 +94,7 @@ export class MediaTreeHelperService {
                     possibleCuts.push(i);
                 }
             }
+            currentWidth += environment.gutter_size
         }
         return possibleCuts;
     }

@@ -26,7 +26,7 @@ export class GalleryComponent {
       HelperService.generateMockSection(12),
       HelperService.generateMockSection(17)
     ]};
-    this.containerWidth = this.galleryRef ? this.galleryRef.nativeElement.offsetWidth : window.innerWidth * 0.9;
+    this.containerWidth = Math.round(this.galleryRef ? this.galleryRef.nativeElement.offsetWidth : window.innerWidth * 0.9);
   }
 
 

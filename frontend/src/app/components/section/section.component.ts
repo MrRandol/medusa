@@ -5,6 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { HelperService } from 'src/app/helpers/helper';
 import { Row } from 'src/app/models/Row';
 import { Media } from 'src/app/models/Media';
+import { environment } from 'environment';
 
 @Component({
   selector: 'app-section',
@@ -27,22 +28,22 @@ export class SectionComponent {
   ngOnInit() {
     this.heightShift = 0;
     this.rows = HelperService.generateSectionRows(this.medias, this.width);
-    this.sectionHeight = this.rows.reduce((acc, r) => acc+r.height, 0);
+    this.sectionHeight = Math.round(this.rows.reduce((acc, r) => acc+r.height, 0) + ((this.rows.length - 1) * environment.gutter_size));
   }
 
   cumulativeHeight(rowIndex: number): number {
     var cumulativeHeight = 0;
     for (var i = 0; i < rowIndex; i++) {
-      cumulativeHeight += this.rows[i].height;
+      cumulativeHeight += this.rows[i].height + environment.gutter_size;
     }
     return cumulativeHeight;
   }
 
   cumulativeWidth(row: Row, columnIndex: number): number {
-    var cumulativeHeight = 0;
+    var cumulativeWidth = 0;
     for (var i = 0; i < columnIndex; i++) {
-      cumulativeHeight += row.medias[i].width * row.height / row.medias[i].height;
+      cumulativeWidth += row.medias[i].width * row.height / row.medias[i].height + environment.gutter_size;
     }
-    return cumulativeHeight;
+    return cumulativeWidth;
   }
 }

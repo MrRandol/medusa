@@ -1,3 +1,5 @@
 <div #gallery class="gallery">
+    <p>Gallery - Available width : {{this.containerWidth}}px</p>
+
     <app-section *ngFor="let section of mediaGallery.data" [medias]="section" [width]="containerWidth"></app-section>
 </div>
