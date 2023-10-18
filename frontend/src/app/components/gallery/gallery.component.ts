@@ -3,11 +3,15 @@ import { MedusaBackendService } from '../../services/medusa-backend.service';
 import { Gallery } from '../../models/Gallery';
 import { HelperService } from 'src/app/helpers/helper';
 import { Row } from 'src/app/models/Row';
+import { MediaComponent } from '../media/media.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-gallery',
   templateUrl: './gallery.component.html',
-  styleUrls: ['./gallery.component.css']
+  styleUrls: ['./gallery.component.css'],
+  standalone: true,
+  imports: [CommonModule, MediaComponent]
 })
 
 export class GalleryComponent {

@@ -4,16 +4,12 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { GalleryComponent } from './components/gallery/gallery.component';
-import { MediaComponent } from './components/media/media.component';
 import { RouterModule } from '@angular/router';
-import { RowComponent } from './components/row/row.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    GalleryComponent,
-    MediaComponent,
-    RowComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -23,6 +19,7 @@ import { RowComponent } from './components/row/row.component';
       {path: '', redirectTo: '/gallery', pathMatch: 'full' }
       //{path: '**', component: ErrorPageComponentComponent }
     ]),
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

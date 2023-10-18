@@ -1,10 +1,13 @@
+import { CommonModule } from "@angular/common";
 import { Component, Input } from "@angular/core";
 import { Media } from "src/app/models/Media";
 
 @Component({
   selector: 'app-media',
   templateUrl: './media.component.html',
-  styleUrls: ['./media.component.css']
+  styleUrls: ['./media.component.css'],
+  standalone: true,
+  imports: [CommonModule]
 })
 
 export class MediaComponent {

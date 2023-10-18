@@ -1,8 +1,0 @@
-.row {
-    contain: layout;
-    display: flex;
-    flex-direction: horizontal;
-    position: absolute;
-    width: 100%;
-    left: 0;
-}
