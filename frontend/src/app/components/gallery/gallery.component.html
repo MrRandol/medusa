@@ -1,18 +1,3 @@
-<div #gallery class="gallery" 
-    *ngIf="gallery !== undefined && gallery.data !== undefined"
-    [style.height.px]="sectionHeight" [style.background-color]="'red'">
-
-    <ng-container *ngFor="let row of rows; let i = index;">
-        <ng-container *ngFor="let media of row.medias; let j = index;">
-            <app-media 
-                [height]="row.height"
-                [width]="media.width * row.height / media.height"
-                [heightShift]="cumulativeHeight(i)" 
-                [widthShift]="cumulativeWidth(row, j)"
-                [media]=media>
-            </app-media>
-        </ng-container>
-    </ng-container>
-
-
+<div #gallery class="gallery">
+    <app-section *ngFor="let section of mediaGallery.data" [medias]="section" [width]="containerWidth"></app-section>
 </div>

@@ -12,8 +12,8 @@ export class HelperService {
 
   static GenerateMockGallery(val: string) { return val; }
 
-  static generateMockGalley(photosCount: number): Gallery{
-    var gallery_data = [];
+  static generateMockSection(photosCount: number): Media[]{
+    var medias = [];
     for (var i=0; i<photosCount; i++) {
       var x = HelperService.getRandomInt(660, 780)
       var y = HelperService.getRandomInt(430, 520)
@@ -24,7 +24,7 @@ export class HelperService {
         y = z;
       }
   
-      gallery_data.push({
+      medias.push({
         id: i, 
         fileName: i.toString(), 
         filePath: "https://picsum.photos/" + x + "/" + y + "?" + i,
@@ -33,7 +33,7 @@ export class HelperService {
       });
     }
 
-    return {data: gallery_data};
+    return medias
   }
 
   static getRandomBool(): Boolean {
@@ -46,8 +46,8 @@ export class HelperService {
     return Math.floor(Math.random() * (max - min) + min); // The maximum is inclusive and the minimum is inclusive
   }
 
-  static generateRows(gallery: Gallery, containerWidth: number): Row[] {
-    if (gallery == null) return [];
+  static generateSectionRows(medias: Media[], containerWidth: number): Row[] {
+    if (medias == null || medias.length ===0 ) return [];
 
     let viewportWidth = containerWidth;
     var config: UiConfig = {
@@ -56,7 +56,7 @@ export class HelperService {
       minHeight: 150,
       targetHeight: 180
     }
-    var mediaDimensions: Dimension[] = gallery.data.map(m => {return {w: m.width, h: m.height}})
+    var mediaDimensions: Dimension[] = medias.map(m => {return {w: m.width, h: m.height}})
 
     var optimalPath = MediaTreeHelperService.GetOptimalPath(
       MediaTreeHelperService.GenerateFlexLayoutGraph(config, mediaDimensions)
@@ -65,7 +65,7 @@ export class HelperService {
     var rows: Row[] = [];
     optimalPath.forEach(p => {
       rows.push({
-        medias: gallery.data.slice(p.source, p.target + 1),
+        medias: medias.slice(p.source, p.target + 1),
         height: p.height
       })
     })
