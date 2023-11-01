@@ -5,5 +5,4 @@
     [style.top.px]="heightShift"
     [style.background-color]="'lightgray'">
     <img [src]="media.filePath" [ngStyle]="{visibility:isLoading?'hidden':'',height:height+'px'}" (load)="hideLoader()" (error)="hideLoader()"/>
-    <p>{{media.id}}</p>
 </div>

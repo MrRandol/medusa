@@ -3,7 +3,7 @@ import { Gallery } from "../models/Gallery";
 import { Dimension, Media } from "../models/Media";
 import { Row } from "../models/Row";
 import { MediaTreeHelperService } from "./mediaTreeHelpers";
-import { UiConfig } from "../models/UIConfig";
+import { sectionConfig } from "../models/UIConfig";
 
 @Injectable({
     providedIn: 'root'
@@ -50,7 +50,7 @@ export class HelperService {
     if (medias == null || medias.length ===0 ) return [];
 
     let viewportWidth = containerWidth;
-    var config: UiConfig = {
+    var config: sectionConfig = {
       containerWidth: viewportWidth,
       maxHeight: 210,
       minHeight: 150,

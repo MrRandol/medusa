@@ -1,4 +1,4 @@
 export const environment = {
     production: false,
-    gutter_size: 3
+    gutter_size: 10
 }
