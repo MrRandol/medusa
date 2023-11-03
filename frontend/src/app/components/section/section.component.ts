@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MediaComponent } from '../media/media.component';
+import { MediaThumbnailComponent } from '../media-thumbnail/media-thumbnail.component';
 import { MatCardModule } from '@angular/material/card';
 import { HelperService } from 'src/app/helpers/helper';
 import { Row } from 'src/app/models/Row';
@@ -10,7 +10,7 @@ import { environment } from 'environment';
 @Component({
   selector: 'app-section',
   standalone: true,
-  imports: [CommonModule, MediaComponent, MatCardModule],
+  imports: [CommonModule, MediaThumbnailComponent, MatCardModule],
   templateUrl: './section.component.html',
   styleUrls: ['./section.component.css']
 })

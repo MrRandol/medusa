@@ -3,14 +3,14 @@ import { Component, Input } from "@angular/core";
 import { Media } from "src/app/models/Media";
 
 @Component({
-  selector: 'app-media',
-  templateUrl: './media.component.html',
-  styleUrls: ['./media.component.css'],
+  selector: 'app-media-thumbnail',
+  templateUrl: './media-thumbnail.component.html',
+  styleUrls: ['./media-thumbnail.component.css'],
   standalone: true,
   imports: [CommonModule]
 })
 
-export class MediaComponent {
+export class MediaThumbnailComponent {
   @Input() media: Media;  
   @Input() height: number;  
   @Input() width: number;  

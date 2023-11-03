@@ -5,13 +5,13 @@
     <div class="section-content" [style.height.px]="sectionHeight">
         <ng-container *ngFor="let row of rows; let i = index;">
             <ng-container *ngFor="let media of row.medias; let j = index;">
-                <app-media 
+                <app-media-thumbnail 
                     [height]="row.height"
                     [width]="media.width * row.height / media.height"
                     [heightShift]="cumulativeHeight(i)" 
                     [widthShift]="cumulativeWidth(row, j)"
                     [media]=media>
-                </app-media>
+                </app-media-thumbnail>
             </ng-container>
         </ng-container>
     </div>
