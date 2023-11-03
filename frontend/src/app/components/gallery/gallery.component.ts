@@ -3,13 +3,14 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { HelperService } from 'src/app/helpers/helper';
 import { Gallery } from '../../models/Gallery';
 import { SectionComponent } from '../section/section.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-gallery',
   templateUrl: './gallery.component.html',
   styleUrls: ['./gallery.component.css'],
   standalone: true,
-  imports: [CommonModule, SectionComponent]
+  imports: [RouterLink, CommonModule, SectionComponent]
 })
 
 export class GalleryComponent {
