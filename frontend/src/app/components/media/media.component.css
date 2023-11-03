@@ -2,6 +2,14 @@ div {
     contain: layout;
     position: absolute;
     top: 0;
+    cursor: pointer;
+    transition: all .2s ease;
+    
+    &:hover {
+        z-index: 99;
+        transform: scale(120%);
+        box-shadow: 5px 5px 10px 5px rgba(44, 43, 43, .3);
+    }
 }
 
 img {

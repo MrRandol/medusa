@@ -52,9 +52,9 @@ export class HelperService {
     let viewportWidth = containerWidth;
     var config: sectionConfig = {
       containerWidth: viewportWidth,
-      maxHeight: 210,
-      minHeight: 150,
-      targetHeight: 180
+      maxHeight: 230,
+      minHeight: 170,
+      targetHeight: 200
     }
     var mediaDimensions: Dimension[] = medias.map(m => {return {w: m.width, h: m.height}})
 
