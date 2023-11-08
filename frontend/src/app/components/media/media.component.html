@@ -1,1 +1,12 @@
-<p>This is media #{{id}}</p>
+<div class="media-wrapper" *ngIf="media">
+    <button class="closeMediaBtn" (click)="closeMedia()">X</button>
+    <div class="media" *ngIf="media">
+        <img [src]="media.filePath" />
+    </div>
+
+    <div class="mediaInfo">
+        <p>
+            {{ media | json }}
+        </p>
+    </div>
+</div>

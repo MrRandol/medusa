@@ -10,8 +10,7 @@ import { sectionConfig } from "../models/UIConfig";
 })
 export class HelperService {
 
-  static GenerateMockGallery(val: string) { return val; }
-
+  /* BEGIN MOCK DATA FOR DEVELOPMENT PURPOSES */
   static generateMockSection(photosCount: number): Media[]{
     var medias = [];
     for (var i=0; i<photosCount; i++) {
@@ -36,15 +35,26 @@ export class HelperService {
     return medias
   }
 
-  static getRandomBool(): Boolean {
+  generateMediaMock(fakeId: number): Media {
+    return {
+      id: fakeId, 
+      fileName: "This is a test",
+      filePath: "https://picsum.photos/1920/1080",
+      width: 1920,
+      height: 1080
+    }
+  }
+
+  private static getRandomBool(): Boolean {
     return Math.random() < 0.5;
   }
 
-  static getRandomInt(min: number, max: number): number {
+  private static getRandomInt(min: number, max: number): number {
     min = Math.ceil(min);
     max = Math.floor(max +1);
     return Math.floor(Math.random() * (max - min) + min); // The maximum is inclusive and the minimum is inclusive
   }
+  /* END MOCK DATA FOR DEVELOPMENT PURPOSES */
 
   static generateSectionRows(medias: Media[], containerWidth: number): Row[] {
     if (medias == null || medias.length ===0 ) return [];
