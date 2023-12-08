@@ -1,0 +1,24 @@
+scalar LocalDateTime
+
+type Query {
+    galleryIndex: Gallery
+    mockGallery(minSections: Int=1,maxSections: Int=5,minMedias: Int=3,maxMedias: Int=25): Gallery
+}
+
+type Gallery {
+    sections: [Section]
+}
+
+type Section {
+    year: Int
+    medias: [Media]
+}
+
+type Media {
+    id: ID
+    name: String
+    path: String
+    dateTaken: LocalDateTime
+    width: Int
+    height: Int
+}

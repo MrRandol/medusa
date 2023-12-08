@@ -1,0 +1,7 @@
+org/randol/medusa/medusabackend/models/Gallery.class
+org/randol/medusa/medusabackend/controllers/GalleryController.class
+org/randol/medusa/medusabackend/MedusaBackendApplication.class
+org/randol/medusa/medusabackend/models/Author.class
+org/randol/medusa/medusabackend/controllers/BookController.class
+org/randol/medusa/medusabackend/models/Media.class
+org/randol/medusa/medusabackend/models/Book.class

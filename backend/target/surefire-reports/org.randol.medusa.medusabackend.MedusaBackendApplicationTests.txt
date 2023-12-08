@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: org.randol.medusa.medusabackend.MedusaBackendApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.482 s -- in org.randol.medusa.medusabackend.MedusaBackendApplicationTests

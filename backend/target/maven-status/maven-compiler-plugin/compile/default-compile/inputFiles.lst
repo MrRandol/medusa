@@ -1,0 +1,7 @@
+/workspaces/medusa/backend/src/main/java/org/randol/medusa/medusabackend/models/Book.java
+/workspaces/medusa/backend/src/main/java/org/randol/medusa/medusabackend/models/Media.java
+/workspaces/medusa/backend/src/main/java/org/randol/medusa/medusabackend/MedusaBackendApplication.java
+/workspaces/medusa/backend/src/main/java/org/randol/medusa/medusabackend/models/Gallery.java
+/workspaces/medusa/backend/src/main/java/org/randol/medusa/medusabackend/models/Author.java
+/workspaces/medusa/backend/src/main/java/org/randol/medusa/medusabackend/controllers/GalleryController.java
+/workspaces/medusa/backend/src/main/java/org/randol/medusa/medusabackend/controllers/BookController.java
