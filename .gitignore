@@ -1,0 +1,46 @@
+# Build artifacts
+target/
+dist/
+build/
+out/
+
+# Dependencies
+node_modules/
+!.mvn/wrapper/maven-wrapper.jar
+!/src/main//target/
+!/src/test//target/
+dependency-reduced-pom.xml
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.properties
+
+# Spring Boot specific
+.jar
+.war
+.nar
+.ear
+.zip
+.tar.gz
+.rar
+
+# Dev Application uploads and logs
+uploads/
+logs/
+.log
+.log.
+
+# IDE files
+.vscode/
+
+# OS files
+.DS_Store
+.DS_Store?
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+~
+
+# Vue.js build outputs
+dist/
+dist-ssr/
+.local
