@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.randol.medusa.exceptions.MedusaException;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -42,6 +43,27 @@ public class MediaService {
             });
     }
 
+
+    
+    @Transactional
+    public Media createMedia(File file) {
+        log.info("Creating new media with file: {}", file.getName());
+        try {
+            String storageLocation = fileStorageService.storeFile(file);
+            Media media = new Media();
+            media.setFilename(file.getName());
+            media.setStorageLocation(storageLocation);
+            media.setImportedAt(LocalDateTime.now());
+            media.setLastModified(LocalDateTime.now());
+            Media savedMedia = mediaRepository.save(media);
+            log.info("Successfully created media with id: {}", savedMedia.getId());
+            return savedMedia;
+        } catch (Exception e) {
+            log.error("Error creating media: {}", e.getMessage(), e);
+            return null;
+        }
+    }
+
     @Transactional
     public Media createMedia(MultipartFile file) {
         log.info("Creating new media with file: {}", file.getOriginalFilename());
@@ -57,7 +79,7 @@ public class MediaService {
             return savedMedia;
         } catch (Exception e) {
             log.error("Error creating media: {}", e.getMessage(), e);
-            throw e;
+            return null;
         }
     }
 

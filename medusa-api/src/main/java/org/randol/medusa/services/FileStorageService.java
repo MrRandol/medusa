@@ -12,7 +12,11 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -56,33 +60,70 @@ public class FileStorageService {
         }
     }
     
-    public String storeFile(MultipartFile file) {
-        if (file == null) {
-            throw new MedusaException("File cannot be null", MedusaException.ErrorType.VALIDATION);
+    // Existing method for MultipartFile
+    public String storeFile(MultipartFile file) throws IOException {
+        // Your existing logic to store MultipartFile
+        String fileName = UUID.randomUUID().toString();
+        Path targetLocation = this.fileStorageLocation.resolve(fileName);
+        Files.copy(file.getInputStream(), targetLocation);
+        return fileName;
+    }
+
+    // New method for File
+    public String storeFile(File file) throws IOException {
+        // Convert File to MultipartFile and delegate to the existing method
+        MultipartFile multipartFile = new CustomMultipartFile(file, Files.probeContentType(file.toPath()));
+        return storeFile(multipartFile);
+    }
+
+    // Reuse your existing utility class (or define it here if not already done)
+    private static class CustomMultipartFile implements MultipartFile {
+        private final File file;
+        private final String contentType;
+
+        public CustomMultipartFile(File file, String contentType) {
+            this.file = file;
+            this.contentType = contentType;
         }
-        String filename = file.getOriginalFilename();
-        if (filename == null) {
-            log.info("No filename provided, generating random UUID");
-            filename = UUID.randomUUID().toString();
+
+        @Override
+        public String getName() {
+            return "file";
         }
-        String originalFilename = StringUtils.cleanPath(filename);
-        log.info("Storing file: {}", originalFilename);
 
-        validateFile(file);
+        @Override
+        public String getOriginalFilename() {
+            return file.getName();
+        }
 
-        String mimeType = detectMimeType(file);
-        String fileExtension = getExtensionFromMimeType(mimeType);
-        String newFilename = UUID.randomUUID().toString() + "." + fileExtension;
+        @Override
+        public String getContentType() {
+            return contentType;
+        }
 
-        try {
-            Path targetLocation = this.fileStorageLocation.resolve(newFilename);
-            Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
-            log.info("Successfully stored file: {} as {}", originalFilename, newFilename);
-            return newFilename;
-        } catch (IOException ex) {
-            log.error("Failed to store file {}: {}", originalFilename, ex.getMessage(), ex);
-            throw new MedusaException("Could not store file " + originalFilename + ". Please try again!", 
-                MedusaException.ErrorType.FILESYSTEM, ex);
+        @Override
+        public boolean isEmpty() {
+            return file.length() == 0;
+        }
+
+        @Override
+        public long getSize() {
+            return file.length();
+        }
+
+        @Override
+        public byte[] getBytes() throws IOException {
+            return Files.readAllBytes(file.toPath());
+        }
+
+        @Override
+        public InputStream getInputStream() throws IOException {
+            return new FileInputStream(file);
+        }
+
+        @Override
+        public void transferTo(File dest) throws IOException {
+            Files.copy(file.toPath(), dest.toPath());
         }
     }
 
