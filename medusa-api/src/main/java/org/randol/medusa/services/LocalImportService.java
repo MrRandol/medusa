@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 
+import org.randol.medusa.exceptions.MedusaException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.MimeTypeUtils;
 
@@ -32,18 +33,24 @@ public class LocalImportService {
         "video/quicktime"
     );
 
-    public void startImport() {
-        log.info("Starting local import");
+    public void startImport(String folderPath) {
+        log.info("Starting local import from folder: {}", folderPath);
 
-        File importFolder = new File(IMPORT_FOLDER_PATH);
+        File importFolder = new File(folderPath);
         if (!importFolder.exists() || !importFolder.isDirectory()) {
-            throw new RuntimeException("Import folder does not exist or is not a directory: " + IMPORT_FOLDER_PATH);
+            throw new MedusaException(
+                "Import folder does not exist or is not a directory: " + folderPath,
+                MedusaException.ErrorType.FILESYSTEM
+            );
         }
 
         // List files in the folder
         File[] files = importFolder.listFiles();
         if (files == null || files.length == 0) {
-            throw new RuntimeException("No files found in the import folder.");
+            throw new MedusaException(
+                "No files found in the import folder: " + folderPath,
+                MedusaException.ErrorType.FILESYSTEM
+            );
         }
 
         // Filter and process media files

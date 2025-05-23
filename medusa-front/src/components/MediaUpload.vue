@@ -5,8 +5,7 @@ export default {
   name: 'MediaUpload',
   data() {
     return {
-      selectedFiles: [],
-      thumbnails: [],
+      selectedFile: null,
       uploading: false,
       uploadError: null,
       uploadSuccess: false,
@@ -15,78 +14,46 @@ export default {
   },
   methods: {
     handleFileSelect(event) {
-      const files = Array.from(event.target.files);
-      if (files.length + this.selectedFiles.length > 10) {
-        this.uploadError = 'You can only upload a maximum of 10 files.';
-        return;
-      }
-      this.selectedFiles = [...this.selectedFiles, ...files];
-      this.uploadSuccess = false;
-      this.uploadError = null;
-      this.createThumbnails(this.selectedFiles);
+      this.selectedFile = event.target.files[0]
+      this.uploadSuccess = false
+      this.uploadError = null
     },
     
-    async uploadFiles() {
+    async uploadFile() {
       try {
-        this.uploading = true;
-        this.uploadError = null;
-        this.uploadSuccess = false;
-
-        if (!this.selectedFiles.length) {
-          throw new Error('Please select files');
+        this.uploading = true
+        this.uploadError = null
+        this.uploadSuccess = false
+        
+        if (!this.selectedFile) {
+          throw new Error('Please select a file')
         }
-
-        for (const file of this.selectedFiles) {
-          const formData = new FormData();
-          formData.append('file', file);
-          await this.mediaService.createMedia(formData);
-        }
-
-        this.uploadSuccess = true;
-        this.selectedFiles = [];
-        this.thumbnails = [];
-        this.$refs.fileInput.value = '';
-
+        
+        const formData = new FormData()
+        formData.append('file', this.selectedFile)
+        
+        await this.mediaService.createMedia(formData)
+        this.uploadSuccess = true
+        this.selectedFile = null
+        this.$refs.fileInput.value = ''
+        
         // Emit event to parent to refresh media list
-        this.$emit('uploaded');
-
+        this.$emit('uploaded')
+        
         // Clear success message after 3 seconds
         setTimeout(() => {
-          this.uploadSuccess = false;
-        }, 3000);
-
+          this.uploadSuccess = false
+        }, 3000)
+        
       } catch (error) {
-        this.uploadError = error.message;
+        this.uploadError = error.message
       } finally {
-        this.uploading = false;
+        this.uploading = false
       }
     },
     
     clearError() {
       this.uploadError = null
-    },
-    
-    handleFileDrop(event) {
-      const files = Array.from(event.dataTransfer.files);
-      if (files.length + this.selectedFiles.length > 10) {
-        this.uploadError = 'You can only upload a maximum of 10 files.';
-        return;
-      }
-      this.selectedFiles = [...this.selectedFiles, ...files];
-      this.uploadSuccess = false;
-      this.uploadError = null;
-      this.createThumbnails(this.selectedFiles);
-    },
-
-    createThumbnails(files) {
-      this.thumbnails = [];
-      files.forEach(file => {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          this.thumbnails.push(e.target.result);
-        };
-        reader.readAsDataURL(file);
-      });
     }
   }
 }
@@ -96,35 +63,18 @@ export default {
   <div class="media-upload">
     <h2>Upload New Media</h2>
     
-    <form @submit.prevent="uploadFiles" class="upload-form">
-      <div 
-        class="file-input-group" 
-        @dragover.prevent 
-        @drop.prevent="handleFileDrop"
-        @click="$refs.fileInput.click()"
-      >
+    <form @submit.prevent="uploadFile" class="upload-form">
+      <div class="file-input-group">
         <input 
           type="file" 
           @change="handleFileSelect" 
           accept="image/*,video/*"
           ref="fileInput"
-          style="display: none;"
-          multiple
         />
-        <div class="drop-zone">
-          Drag and drop your files here or click to select
-        </div>
+        <button type="submit" :disabled="!selectedFile || uploading">
+          {{ uploading ? 'Uploading...' : 'Upload Media' }}
+        </button>
       </div>
-
-      <div class="thumbnail-preview" v-if="selectedFiles.length">
-        <div v-for="(file, index) in selectedFiles" :key="index">
-          <img :src="thumbnails[index]" alt="File thumbnail" />
-        </div>
-      </div>
-
-      <button type="submit" :disabled="!selectedFiles.length || uploading">
-        {{ uploading ? 'Uploading...' : 'Upload Media' }}
-      </button>
     </form>
     
     <div v-if="uploadError" class="error-message">
@@ -152,16 +102,6 @@ export default {
   gap: 1rem;
   align-items: center;
   justify-content: center;
-  border: 2px dashed #007bff;
-  padding: 1rem;
-  cursor: pointer;
-}
-
-.drop-zone {
-  flex: 1;
-  text-align: center;
-  padding: 1rem;
-  color: #007bff;
 }
 
 .error-message {
@@ -200,16 +140,5 @@ button[type="submit"] {
 button[type="submit"]:disabled {
   background: #6c757d;
   cursor: not-allowed;
-}
-
-.thumbnail-preview {
-  margin-top: 1rem;
-}
-
-.thumbnail-preview img {
-  max-width: 100px;
-  max-height: 100px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
 }
 </style> 

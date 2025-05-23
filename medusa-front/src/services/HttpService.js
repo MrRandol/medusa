@@ -1,9 +1,11 @@
-import { inject } from "vue";
-
 class HttpService {
   constructor() {
-    const apiUrl = inject('apiUrl'); // runtime value, see main.js
-    this.baseURL = apiUrl || 'http://localhost:8080';
+    try {
+      this.baseURL = process.env.VITE_API_URL
+    } catch (error) {
+      console.error('Error getting base URL:', error)
+      this.baseURL ='http://localhost:8080'
+    } 
   }
 
   async get(url) {

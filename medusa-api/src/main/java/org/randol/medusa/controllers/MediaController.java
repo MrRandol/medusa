@@ -58,7 +58,6 @@ public class MediaController {
                     .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + file.getFilename() + "\"")
                     .body(file);
             } else {
-                log.error("Media was found but value is null. Returning error");
                 return ResponseEntity.notFound().build();
             }
         } catch (Exception e) {
